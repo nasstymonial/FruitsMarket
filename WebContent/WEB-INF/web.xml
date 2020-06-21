@@ -49,6 +49,16 @@
 		<servlet-name>Fruits</servlet-name>
 		<url-pattern>/fruits</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Legumes</servlet-name>
+		<servlet-class>com.fruitsmarket.servlets.Legumes</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Legumes</servlet-name>
+		<url-pattern>/legumes</url-pattern>
+	</servlet-mapping>
 	
 	<!-- Balise JSP config qui permet d'inclure au débuts en priorité le fichier /WEB-INF/taglibs.jsp sur tout nos fichier JSP-->
 	<jsp-config>
