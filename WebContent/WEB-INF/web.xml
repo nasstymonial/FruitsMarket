@@ -60,6 +60,43 @@
 		<url-pattern>/legumes</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>Salades</servlet-name>
+		<servlet-class>com.fruitsmarket.servlets.Salades</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Salades</servlet-name>
+		<url-pattern>/salades</url-pattern>
+	</servlet-mapping>
+	
+	<!-- INTERFACE ADMIN -->
+	<servlet>
+		<servlet-name>IndexAdmin</servlet-name>
+		<servlet-class>com.fruitsmarket.servlets.IndexAdmin</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>IndexAdmin</servlet-name>
+		<url-pattern>/admin/index</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InsertAdmin</servlet-name>
+		<servlet-class>com.fruitsmarket.servlets.InsertAdmin</servlet-class>
+		<multipart-config>
+            <location>C:\Users\Nass\fichierstmp</location> <!-- A adapter chez vous -->
+            <max-file-size>10485760</max-file-size> <!-- 10 Mo -->
+            <max-request-size>52428800</max-request-size> <!-- 5 x 10 Mo -->
+            <file-size-threshold>1048576</file-size-threshold> <!-- 1 Mo -->
+        </multipart-config>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>InsertAdmin</servlet-name>
+		<url-pattern>/admin/insert</url-pattern>
+	</servlet-mapping>
+	
 	<!-- Balise JSP config qui permet d'inclure au débuts en priorité le fichier /WEB-INF/taglibs.jsp sur tout nos fichier JSP-->
 	<jsp-config>
 		<jsp-property-group>

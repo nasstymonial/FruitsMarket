@@ -10,9 +10,12 @@ package com.fruitsmarket.beans;
 public class Products {
 	private int id; 
 	private String nomProduits; 
-	private double prix;
+	private String prix;
 	private String type; 
+	private String portions; 
+	private String images; 
 	
+
 	/*
 	 * GETTERS ET SETTERS
 	 */
@@ -32,12 +35,12 @@ public class Products {
 		this.nomProduits = nomProduits;
 	}
 	
-	public double getPrix() {
+	public String getPrix() {
 		return prix;
 	}
 	
-	public void setPrix(double prix) {
-		this.prix = prix;
+	public void setPrix(String string) {
+		this.prix = string;
 	}
 
 	public String getType() {
@@ -46,6 +49,22 @@ public class Products {
 	
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getPortions() {
+		return portions;
+	}
+
+	public void setPortions(String portions) {
+		this.portions = portions;
+	}
+
+	public String getImages() {
+		return images;
+	}
+
+	public void setImages(String images) {
+		this.images = images;
 	}
 	
 }

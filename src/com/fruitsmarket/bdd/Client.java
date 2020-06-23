@@ -15,6 +15,9 @@ public class Client {
 	
 	private Connection connexion; 
 	
+	/*
+	 * Méthode pour la page inscription
+	 */
 	public void creerUtilisateur(Utilisateur utilisateur) {
 		loadDatabase(); 
 		

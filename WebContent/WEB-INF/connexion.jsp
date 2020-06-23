@@ -30,15 +30,15 @@
 	<div class="container">
 	    <div class="mx-auto">
 	        <h1>Veuillez vous connecter</h1>
-	        <form>
+	        <form method="POST" action="">
 	            <div class="form-group row">
 	                <div class="col-sm-10">
-	                <input type="email" class="form-control" id="inputEmail3" placeholder="Adresse électronique" required>
+	                <input type="email" class="form-control" id="inputEmail3" name="login" id="login" placeholder="Adresse électronique" required>
 	                </div>
 	            </div>
 	            <div class="form-group row">
 	                <div class="col-sm-10">
-	                <input type="password" class="form-control" id="inputPassword3" placeholder="Mot de passe" required>
+	                <input type="password" class="form-control" id="inputPassword3" name="pwd" id="pwd" placeholder="Mot de passe" required>
 	                </div>
 	            </div>
 	            <div class="form-group row">

@@ -77,16 +77,16 @@
       </div>
     </nav>
     
-   	<h1 class="title-category display-3">Nos légumes</h1>
+   	<h1 class="title-category display-3">Nos salades</h1>
    	
     <div class="row row-cols-1 row-cols-md-4">
-	    <c:forEach var="productsLegumes" items = "${ productsLegumes }">
+	    <c:forEach var="productsSalades" items = "${ productsSalades }">
 	        <div class="col mb-4">
 	          <div class="card">
-	            <img src="${ productsLegumes.images }" class="card-img-top" alt="...">
+	            <img src="${ productsSalades.images }" class="card-img-top" alt="...">
 	            <div class="card-body">
-	              <h5 class="card-title">${ productsLegumes.nomProduits }</h5>
-	              <p class="card-text">${ productsLegumes.prix } € ${ productsLegumes.portions}</p>
+	              <h5 class="card-title">${ productsSalades.nomProduits }</h5>
+	              <p class="card-text">${ productsSalades.prix } € ${ productsSalades.portions}</p>
 	              <button type="button" class="btn btn-outline-success">
 	                <svg class="bi bi-cart" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 	                    <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>

@@ -31,20 +31,26 @@ public class Produits {
 			statement = connexion.createStatement(); 
 			
 			// Exécution de la requête 
-			resultat = statement.executeQuery("SELECT id, nom_produits, prix FROM products ORDER BY nom_produits"); 
+			resultat = statement.executeQuery("SELECT id, nom_produits, prix, portions, type, images FROM products ORDER BY nom_produits"); 
 			
 			// récupération des données
 			while (resultat.next()) {
 				// Récupére les entrée 
 				int id = resultat.getInt("id");
 				String nomProduits = resultat.getString("nom_produits");
-				double prix = resultat.getDouble("prix"); 
+				String prix = resultat.getString("prix"); 
+				String portions = resultat.getString("portions");
+				String type = resultat.getString("type"); 
+				String image = resultat.getString("images"); 
 				
 				// Définissions du nom produits et du prix récupérer dans la BDD 
 				Products product = new Products(); 
 				product.setId(id);
 				product.setNomProduits(nomProduits);
 				product.setPrix(prix);
+				product.setPortions(portions);
+				product.setType(type);
+				product.setImages(image);
 				
 				// Ajout dans la liste 
 				products.add(product);

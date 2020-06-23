@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.fruitsmarket.bdd;
 
 import java.sql.*;
@@ -12,14 +9,14 @@ import com.fruitsmarket.beans.Products;
  * @author Nass
  *
  */
-public class LegumesBDD {
+public class SaladesBDD {
 private Connection connexion; 
 	
 	/*
 	 * Méthode qui va permettre de faire des requête SQL dans la BDD et va crée un array produits
 	 */
-	public List<Products> recupererFruits() {
-		List<Products> productsLegumes = new ArrayList<Products>();
+	public List<Products> recupererSalades() {
+		List<Products> productsSalades = new ArrayList<Products>();
 		Statement statement = null; 
 		ResultSet resultat = null; 
 		
@@ -29,7 +26,7 @@ private Connection connexion;
 			statement = connexion.createStatement(); 
 			
 			// Exécution de la requête 
-			resultat = statement.executeQuery("SELECT id, nom_produits, prix, portions, images FROM products WHERE type='légumes' ORDER BY nom_produits"); 
+			resultat = statement.executeQuery("SELECT id, nom_produits, prix, portions, images FROM products WHERE type='salades' ORDER BY nom_produits"); 
 			
 			// récupération des données
 			while (resultat.next()) {
@@ -49,7 +46,7 @@ private Connection connexion;
 				product.setImages(image);
 				
 				// Ajout dans la liste 
-				productsLegumes.add(product);
+				productsSalades.add(product);
 			}
 		} catch (SQLException e) {
 			System.out.println("Erreur sur la requête SQL");
@@ -72,7 +69,7 @@ private Connection connexion;
 			}
 		}
 		
-		return productsLegumes; 
+		return productsSalades; 
 	}
 	
 	private void loadDatabase() {

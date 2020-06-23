@@ -42,3 +42,9 @@ footer {
     padding-left: 5%;
     padding-top: 5%;
 }
+
+@media screen and (max-width: 800px) {
+  .button {
+    width: 20%;
+  }
+}
