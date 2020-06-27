@@ -1,0 +1,61 @@
+@charset "UTF-8";
+body{
+	overflow:hidden; 
+	overflow-y: scroll;
+	background-color: #eee; 
+}
+.card-img-top {
+    background-color: #eeeeee;
+}
+.row.row-cols-1.row-cols-md-4 {
+    padding: 5%;
+}
+.header {
+    background-image: url("images/wallpaper.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow:inset 0 0 0 2000px rgba(0, 0, 0, 0.75); 
+}
+.header{
+    color: #fff;
+}
+.connexionandcart a {
+	text-decoration: none; 
+	color: #000;
+}
+.connexionandcart a:hover {
+	color: #28a745; 
+}
+.categories {
+    background-color: rgba(0, 0, 0, .85);
+}
+.categories a {
+    color: #999;
+}
+.categories a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+footer {
+	text-align: center; 
+}
+.title-category {
+    padding-left: 5%;
+    padding-top: 5%;
+}
+.product {
+	background-color: #fff; 
+	border-radius: 10px; 
+	margin-bottom: 2%;
+}
+.product h2 {
+	padding: 1%;
+}
+.product td {
+	text-align: center;
+}
+@media screen and (max-width: 800px) {
+  .button {
+    width: 20%;
+  }
+}

@@ -1,0 +1,38 @@
+@charset "UTF-8";
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: sans-serif;
+    margin: 0; 
+    padding: 0; 
+}
+.popup {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0; 
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+}
+
+.contenu-popup {
+    overflow: auto;
+    width: 600px;
+    max-width: calc(100vh - 20px); /* Une fois la hauteur de la taille de l'écran */
+    max-height: calc(100vh - 20px); 
+    padding: 20px;
+    background-color: #fff;
+}
+.close {
+    color: #d63031;
+    text-decoration: none; 
+}
+.close:hover {
+    color: #eb2f06;
+    text-decoration: none; 
+}
