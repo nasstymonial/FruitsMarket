@@ -55,7 +55,7 @@ public class Product {
 	}
 	public boolean check(ArrayList<String> cartlist, String id2) {
 		for(String id : cartlist) {
-			if(id.equals(id2))
+			if(id.equals(id))
 				return true;
 		}
 		return false;

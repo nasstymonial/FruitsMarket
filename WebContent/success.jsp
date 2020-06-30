@@ -1,13 +1,13 @@
 <%@page import="com.beans.Product"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="javax.swing.JOptionPane"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Confirmation achat - FruitsMarket</title>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -17,7 +17,7 @@
   	<style>
     	<%@ include file="/css/style.css" %>
 	</style>
-	
+
 	<c:set var="x" value="0"></c:set>
 	<c:forEach items="${cartlist }" var="i">
 		<c:set var="x" value="${x+1 }"></c:set>
@@ -53,8 +53,8 @@
 			          </a>
 		          </c:when>
 				  <c:when test="${session != null}">
-					<a href="Controller?page=logout" style="color: #F24638;">Déconnexion</a></li>
-					<a href="#">Mon compte(<c:out value="${username }"></c:out>)</a></li>
+					<a href="Controller?page=logout" style="color: #F24638;">DÃ©connexion</a></li>
+					<a href="Controller?page=account">Mon compte(<c:out value="${username }"></c:out>)</a></li>
 				  </c:when>	          
 	       	  	</c:choose>
 		          
@@ -72,34 +72,30 @@
 	    </div>
 	</header>
 	
-	
-	
 	<c:choose>
 		<c:when test="${session == null}">
 				<%
-				JOptionPane.showMessageDialog(null, "Veuillez d'abord vous connecter", "Info", JOptionPane.INFORMATION_MESSAGE);
+				request.setAttribute("msg", "Veuillez d'abord vous connecter");
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 				%>
 		</c:when>
 		
-		<c:when test="${x == 0}">
-				
+		<c:when test="${x == 0}">				
 				<%
-				JOptionPane.showMessageDialog(null, "Votre panier est vide", "Info", JOptionPane.INFORMATION_MESSAGE);
 				request.getRequestDispatcher("cart.jsp").forward(request, response);
 				%>
 		</c:when>
 		
 		<c:when test="${session != null}">
-				
-				
+			<c:if test="${x > 0}">
 				<div class="container" style="margin-top: 60px;margin-bottom: 60px;">
-					<h4>Merci <font color="#6bb1f8"><c:out value="${name }"></c:out></font> pour votre achat. Nous avons reçu votre commande et elle sera livrée au <font color="#6bb1f8"><c:out value="${address }"></c:out></font> dans 4-5 jours ouvrables.</h4>
-					<h4>Un courrier de confirmation sera envoyé prochainement à <font color="#6bb1f8"><c:out value="${email }"></c:out></font>.</h4>
+					<h4>Merci <font color="#6bb1f8"><c:out value="${name }"></c:out></font> pour votre achat. Nous avons reÃ§u votre commande et elle sera livrÃ©e au <font color="#6bb1f8"><c:out value="${address }"></c:out></font> dans 4-5 jours ouvrables.</h4>
+					<h4>Un courrier de confirmation sera envoyÃ© prochainement Ã  <font color="#6bb1f8"><c:out value="${email }"></c:out></font>.</h4>
 					
 					<br><br>
 					<a href="Controller?page=index"><input type="button" value="Continuer vos achats" class="btn btn-warning" style="width:100%;padding:8px;font-size:16px;"></a>
 				</div>
+			</c:if>
 			
 		</c:when>
 	

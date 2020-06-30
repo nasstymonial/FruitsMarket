@@ -143,6 +143,35 @@ public class DB {
 		dbClose();
 		return userList;
 	}
+	
+	public User fetchUser(String id) throws SQLException {
+		dbConnect();
+		String sql = "select * from user where id=?";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, id);
+		ResultSet rst = pstmt.executeQuery();
+		User u = new User(); 
+		while(rst.next()){
+			
+			u.setId(rst.getInt("id"));
+			u.setName(rst.getString("name"));
+			u.setAddress(rst.getString("address"));
+			u.setEmail(rst.getString("email"));
+		}
+		dbClose();
+		return u;
+	}
+	public void updateUser(User u) throws SQLException {
+		dbConnect();
+		String sql = "update user set name=?,address=?, email=? where id = ?";
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setString(1, u.getName());
+		st.setString(2, u.getAddress());
+		st.setString(3, u.getEmail());
+		st.setInt(4, u.getId());
+		st.executeUpdate();
+		dbClose();
+	}
 
 	public void deleteProduct(String id) throws SQLException {
 		

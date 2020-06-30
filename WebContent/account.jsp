@@ -4,19 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Nos salades - FruitsMarket</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>Mon compte - FruitsMarket</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-	<link rel="stylesheet" type="text/css" href="">
 </head>
 <body>
+<style>
+   	<%@ include file="/css/account.css" %>
+</style>
 
-  	<style>
-    	<%@ include file="/css/style.css" %>
-	</style>
-	<c:set var="x" value="0"></c:set>
+<c:set var="x" value="0"></c:set>
 	<c:forEach items="${cartlist }" var="i">
 		<c:set var="x" value="${x+1 }"></c:set>
 	</c:forEach>
@@ -68,63 +67,42 @@
 	      </nav>
 	
 	    </div>
-	    
-		<div class="header position-relative overflow-hidden p-md-5 text-center bg-light">
-		  <div class="col-md-5 p-lg-5 mx-auto my-5">
-		    <h1 class="display-4 font-weight-normal">Fruits Market</h1>
-		    <p class="lead font-weight-normal">Des produits frais et de qualités.</p>
-		  </div>
-		</div>
-		
-		 <!-- BODY -->
-		 <!-- MENU CATEGORIES-->
-		 <nav class="categories">
-		   <div class="container d-flex flex-column flex-md-row justify-content-between">
-		     <a class="py-2 d-none d-md-inline-block" href="Controller?page=all-products">Tous les produits</a>
-		     <a class="py-2 d-none d-md-inline-block" href="Controller?page=fruits">Nos fruits</a>
-		     <a class="py-2 d-none d-md-inline-block" href="Controller?page=legumes">Nos légumes</a>
-		     <a class="py-2 d-none d-md-inline-block" href="Controller?page=salades">Nos salades</a>
-		     <a class="py-2 d-none d-md-inline-block" href="Controller?page=fines-herbes">Nos fines herbes</a>
-		   </div>
-		 </nav>
 	</header>
 	
-	<font color="#28a745"><c:out value="${ msgSuccess }"></c:out></font>
-	<font color="#F24638"><c:out value="${ msg }"></c:out></font>
-	
-	<h1 class="title-category display-3">Nos salades</h1>
-		
-	<div class="row row-cols-1 row-cols-md-4">
-		<c:forEach items="${list }" var="product">
-	
-			<c:if test="${product.getCategory() == 'salades' }">
-		
-				 <div class="col mb-4">
-		         	<div class="card">
-		           		<img src="${product.getImage() }" class="card-img-top" alt="...">
-		           		<div class="card-body">
-			             	<h5 class="card-title"><c:out value="${product.getName() }"></c:out></h5>
-			             	<p class="card-text"><c:out value="${ product.getPrice() }"></c:out> €</p>
-						  	<a href="Controller?page=addtocart&action=salades&id=<c:out value="${product.getId()}"/>">
-				              <button type="button" class="btn btn-outline-success">
-							 		<svg class="bi bi-cart" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-				         				<path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-				       				</svg>
-				       				Ajouter au panier
-				              </button>
-						  </a> 
-		           		</div>
-		         	</div>
-				</div>
-						
-			</c:if>
-							
-		</c:forEach>
-	</div>
-	
-	
-	<%@ include file="footer.jsp" %>
-	
+     <div class="account">
+		<c:choose>
+			<c:when test="${session == null }">
+				<p>Vous devez vous connectez pour accéder à cette page !</p>
+				<a class="user my-2 my-sm-0 mr-2" href="Controller?page=login">
+					Connectez-vous !
+				</a>
+	        </c:when>
+			<c:when test="${session != null}">
+				<h1>Mon compte(<c:out value="${username }"></c:out>)</h1>
+				
+			 	<font color="#28a745"><c:out value="${msgSuccess }"></c:out></font>
+			 	
+			 	<div>
+				 	<a href="Controller?page=edit">
+				 		<button type="button" class="btn btn-warning">Modifier le profil</button>
+				 	</a>
+				 	
+				 	<br>
+				 	<h5>Nom et Prénom : </h5>
+				 	<c:out value="${ name }"></c:out>
+				 	
+				 	<br>
+				 	<h5>Adresse : </h5>
+				 	<c:out value="${ address }"></c:out>
+				 	
+				 	<br>
+				 	<h5>Adresse mail: </h5>
+				 	<c:out value="${ email }"></c:out>
+			 	</div>
+			</c:when>	          
+  		</c:choose>
+ 	</div>
+ 	
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

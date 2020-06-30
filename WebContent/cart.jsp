@@ -50,7 +50,7 @@
 		          </c:when>
 				  <c:when test="${session != null}">
 					<a href="Controller?page=logout" style="color: #F24638;">Déconnexion</a></li>
-					<a href="#">Mon compte(<c:out value="${username }"></c:out>)</a></li>
+					<a href="Controller?page=account">Mon compte(<c:out value="${username }"></c:out>)</a></li>
 				  </c:when>	          
 	       	  	</c:choose>
 		          
@@ -85,7 +85,6 @@
 		</c:otherwise>
 	
 	</c:choose>
-	
 		<c:set var="total" value="0"></c:set>
 		<c:forEach items="${cartlist }" var="i">
 			<c:forEach items="${list }" var="Product">
@@ -110,7 +109,9 @@
 	
 	<h4 style="margin-top: 40px;margin-bottom: 40px;">Total de la commande: <c:out value="${ total }"></c:out> €</h4>
 	
-	<a href="Controller?page=success"><input type="submit" value="Procéder au paiement" class="btn btn-success" style="width:100%;padding:8px;font-size:16px;"></a><br>
+	<c:if test="${x > 0}">
+		<a href="Controller?page=success"><input type="submit" value="Procéder au paiement" class="btn btn-success" style="width:100%;padding:8px;font-size:16px;"></a><br>	
+	</c:if>
 	<a href="Controller?page=index"><input type="button" value="Continuer à faire des achats" class="btn btn-warning" style="width:100%;padding:8px;font-size:16px;"></a>
 	
 	

@@ -142,6 +142,47 @@ public class Controller extends HttpServlet {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 		
+		if(page.equals("account")) {
+			request.getRequestDispatcher("account.jsp").forward(request, response);
+		}
+		
+		if(page.equals("edit")) {
+			String id = request.getParameter("id");
+			DB account = new DB();
+			User u = null;
+			try {
+				 u = account.fetchUser(id);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			request.setAttribute("u", u);
+			request.getRequestDispatcher("editAccount.jsp").forward(request, response);
+		}
+		
+		if(page.equals("edit_account")) {
+			String id = request.getParameter("id");
+			String name = request.getParameter("name");
+			String address = request.getParameter("address");
+			String email = request.getParameter("email");
+			User u = new User();
+			u.setId(Integer.parseInt(id));
+			u.setName(name);
+			u.setAddress(address);
+			u.setEmail(email);
+			
+			DB account = new DB();
+			try {
+				account.updateUser(u);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("msgSuccess", "Les détails de votre compte ont été mis à jour avec succès");
+			request.getRequestDispatcher("account.jsp").forward(request, response);
+		}
+		
 		if(page.equals("fruits") || page.equals("legumes") || page.equals("salades") || page.equals("fines-herbes") || page.equals("all-products")) {
 			DB db = new DB();
 			 try {

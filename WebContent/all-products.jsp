@@ -52,7 +52,7 @@
 		          </c:when>
 				  <c:when test="${session != null}">
 					<a href="Controller?page=logout" style="color: #F24638;">Déconnexion</a></li>
-					<a href="#">Mon compte(<c:out value="${username }"></c:out>)</a></li>
+					<a href="Controller?page=account">Mon compte(<c:out value="${username }"></c:out>)</a></li>
 				  </c:when>	          
 	       	  	</c:choose>
 		          
