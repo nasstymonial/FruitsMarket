@@ -1,16 +1,28 @@
 package com.beans;
 
 import java.util.ArrayList;
+
+/*
+ * @author Nassim Kissi 
+ * Classe représentant notre objet Produit
+ */
 public class Product {
 	
+	/*
+	 * Propriété de notre objet 
+	 */
 	private int id;
 	private String name;
 	private double price;
 	private String category;
 	private String featured;
+	private int stock; 
 	private String image;
 	
 	
+	/*
+	 * GETTER & SETTER
+	 */
 	public int getId() {
 		return id;
 	}
@@ -41,6 +53,12 @@ public class Product {
 	public void setFeatured(String featured) {
 		this.featured = featured;
 	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
 	public String getImage() {
 		return image;
 	}
@@ -55,15 +73,15 @@ public class Product {
 	}
 	public boolean check(ArrayList<String> cartlist, String id2) {
 		for(String id : cartlist) {
-			if(id.equals(id))
+			if(id.equals(id2))
 				return true;
 		}
 		return false;
 	}
 	public ArrayList<String> remove(ArrayList<String> cartlist, String id) {
-		for(String cid : cartlist) {
-			if(cid.equals(id)) {
-				cartlist.remove(cid);
+		for(String id1 : cartlist) {
+			if(id1.equals(id1)) {
+				cartlist.remove(id1);
 				break;
 			}
 				

@@ -14,6 +14,10 @@ import com.beans.Product;
 import com.beans.User;
 import com.model.DB;
 
+/*
+ * @Author Nassim Kissi
+ * Servlet qui permet de gérer nos page principal
+ */
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ArrayList<Product> list = new ArrayList<>();
@@ -21,6 +25,9 @@ public class Controller extends HttpServlet {
 	ArrayList<User> userList = new ArrayList<>();
 	HttpSession session;
 
+	/*
+	 * Permet de récupérer une ressource web du serveur via une URL
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String page = request.getParameter("page");
 		if(page == null || page.equals("index")) {
@@ -43,16 +50,24 @@ public class Controller extends HttpServlet {
 		}
 	}
 
+	/*
+	 *  Permet de soumettre au serveur des données de tailles variables, ou que l'on sait volumineuses.
+	 *  Ici on soumet au serveur plusieur données pour chacune de nos pages 
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String page = request.getParameter("page");
+		
+		// Si la page concerne la page de connexion
 		if(page.equals("login")) {
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 		
+		// Si la page concerne la page d'inscription 
 		if(page.equals("sign-up")) {
 			request.getRequestDispatcher("signup.jsp").forward(request, response);
 		}
 		
+		// Si la page concerne le formulaire d'inscription qui se trouve dans notre page inscription
 		if(page.equals("sign-up-form")) {
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
@@ -61,6 +76,11 @@ public class Controller extends HttpServlet {
 			String password_1 = request.getParameter("password_1");
 			String password_2 = request.getParameter("password_2");
 			
+			/*
+			 * Verification des deux mots de passes pour voir ci celle-ci sont identique 
+			 * Si les deux mot de passe sont identique on envoie tout dans la base de données puis on affiche un message 
+			 * de confirmation sinon on envoie un message d'erreur
+			 */
 			if(password_1.equals(password_2)) {
 				
 				User user = new User();
@@ -94,6 +114,11 @@ public class Controller extends HttpServlet {
 			
 		}
 		
+		/*
+		 * Si la page concerne le formulaire de connexion qui se trouve dans notre page connexion
+		 * Va permettre d'ouvrir une session si le status est vrai, c'est à dire mot de passe et identifiant
+		 * bien enregistré dans notre BDD, renvoie faux sinon avec un message d'erreur
+		 */
 		if(page.equals("login-form")) {
 			
 			String username = request.getParameter("username");
@@ -130,6 +155,9 @@ public class Controller extends HttpServlet {
 			
 		}
 		
+		/*
+		 * Si la page est égal à logout nous détruisons la session qui est actif 
+		 */
 		if(page.equals("logout")) {
 			session = request.getSession();
 			session.invalidate();
@@ -142,10 +170,16 @@ public class Controller extends HttpServlet {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 		
+		/*
+		 * Si la page concerne la page "mon compte" 
+		 */
 		if(page.equals("account")) {
 			request.getRequestDispatcher("account.jsp").forward(request, response);
 		}
 		
+		/*
+		 * Si la page permet de modifier le compte
+		 */
 		if(page.equals("edit")) {
 			String id = request.getParameter("id");
 			DB account = new DB();
@@ -162,12 +196,10 @@ public class Controller extends HttpServlet {
 		}
 		
 		if(page.equals("edit_account")) {
-			String id = request.getParameter("id");
 			String name = request.getParameter("name");
 			String address = request.getParameter("address");
 			String email = request.getParameter("email");
 			User u = new User();
-			u.setId(Integer.parseInt(id));
 			u.setName(name);
 			u.setAddress(address);
 			u.setEmail(email);
@@ -183,6 +215,10 @@ public class Controller extends HttpServlet {
 			request.getRequestDispatcher("account.jsp").forward(request, response);
 		}
 		
+		/*
+		 * Si la pages concerne l'une des catégories des produits du site, nous faisont une redirection puis nous affichons tout nos produits à l'aide d'une list
+		 * selon leurs propres catégories 
+		 */
 		if(page.equals("fruits") || page.equals("legumes") || page.equals("salades") || page.equals("fines-herbes") || page.equals("all-products")) {
 			DB db = new DB();
 			 try {
@@ -207,11 +243,16 @@ public class Controller extends HttpServlet {
 		}
 		
 		
-		
+		/*
+		 * Si la page concerne la page panier
+		 */
 		if(page.equals("showcart")) {
 			request.getRequestDispatcher("cart.jsp").forward(request, response);
 		}
 		
+		/*
+		 * Va permettre d'ajouter les produits dans notre page panier avec un message de confirmation ou d'erreur 
+		 */
 		if(page.equals("addtocart")) {
 			String id = request.getParameter("id");
 			String action = request.getParameter("action");
@@ -239,12 +280,20 @@ public class Controller extends HttpServlet {
 				request.getRequestDispatcher("fruits.jsp").forward(request, response);
 		}
 		
+		/*
+		 * Va permettre de renvoyer un message de confirmation à l'utilisateur connecté lors de sa confirmation d'achat 
+		 */
 		if(page.equals("success")) {
-			
+			String id = request.getParameter("id");
+			Product p = new Product();
+			cartlist = p.remove(cartlist,id);
 			request.getRequestDispatcher("success.jsp").forward(request, response);
 			
 		}
 		
+		/*
+		 * Permet de supprimer un produit de notre panier 
+		 */
 		if(page.equals("remove")) {
 			String id = request.getParameter("id");
 			Product p = new Product();

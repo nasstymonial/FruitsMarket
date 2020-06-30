@@ -57,6 +57,12 @@
 					<input type="text" name="featured" value="<c:out value="${p.getFeatured() }"></c:out>" required>
 			    </div>
 			  </div>
+			  <div class="form-row">
+				  <div class="form-group ">
+			 		<label>Stock</label>
+			 		<input type="number" name="stock" value="<c:out value="${ p.getStock() }"></c:out>" required>
+				  </div>
+			  </div>
 			  <div class="form-group">
 		 		 <label> Image du produit</label>
 				 <img style="height: 30%;width: 30%;" src="<c:out value="${p.getImage() }"></c:out>">

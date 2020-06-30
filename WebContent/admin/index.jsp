@@ -12,8 +12,6 @@
 
 </head>
 <body>
-<body>
-
 	<header>
 		<h1>
 			Bienvenue admin !
@@ -47,6 +45,7 @@
                     <th>Nom</th>
                     <th>Prix</th>
                     <th>Catégorie</th>
+                    <th>Stock</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -58,6 +57,7 @@
 		                    <td><c:out value="${row.name }"></c:out></td>
 		                    <td><c:out value="${row.price }"></c:out></td>
 		                    <td><c:out value="${row.category}"></c:out></td>
+		                    <td><c:out value="${row.stock}"></c:out></td>
 		                    <td width="20%">
 			               
 			                     <a class="btn btn-primary" href="<%= request.getContextPath() %>/admin?page=edit&id=${row.id}"><span class="glyphicon glyphicon-pencil"></span> Modifier</a>

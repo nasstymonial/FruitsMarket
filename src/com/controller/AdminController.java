@@ -16,11 +16,18 @@ import javax.servlet.http.Part;
 import com.beans.Product;
 import com.model.DB;
 
+/*
+ * @Author Nassim Kissi
+ * Servlet qui permet de gérer nos pages admin 
+ */
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final int TAILLE_TAMPON = 10240;
 	public static final String FILE_PATH = "C:\\Users\\Nass\\eclipse-workspace\\Fruits_Market\\WebContent\\images\\"; // A adapter
 	
+	/*
+	 * Permet de récupérer une ressource web du serveur via une URL
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String page = request.getParameter("page");
 		if(page == null) {
@@ -30,7 +37,10 @@ public class AdminController extends HttpServlet {
 		}
 	}
 
-	
+	/*
+	 *  Permet soumettre au serveur des données de tailles variables, ou que l'on sait volumineuses.
+	 *  Ici on soumet au serveur plusieur données pour chacune de nos pages admin
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String page = request.getParameter("page");
 		if(page.equals("admin-login-form")) {
@@ -39,6 +49,7 @@ public class AdminController extends HttpServlet {
 			
 			
 			if(username.equals("root") && password.equals("toor")) {
+				
 				request.getRequestDispatcher("admin/index.jsp").forward(request, response);
 
 			}
@@ -94,12 +105,14 @@ public class AdminController extends HttpServlet {
 			String price = request.getParameter("price");
 			String category = request.getParameter("category");
 			String featured = request.getParameter("featured");
+			String stock = request.getParameter("stock"); 
 			Product p = new Product();
 			p.setId(Integer.parseInt(id));
 			p.setName(name);
 			p.setPrice(Double.parseDouble(price));
 			p.setCategory(category);
 			p.setFeatured(featured);
+			p.setStock(Integer.parseInt(stock)); 
 			
 			DB account = new DB();
 			try {
@@ -123,12 +136,13 @@ public class AdminController extends HttpServlet {
 			String price = request.getParameter("price");
 			String category = request.getParameter("category");
 			String featured = request.getParameter("featured");
-			
+			String stock = request.getParameter("stock"); 
 			Product p = new Product();
 			p.setName(name);
 			p.setPrice(Double.parseDouble(price));
 			p.setCategory(category);
 			p.setFeatured(featured);
+			p.setStock(Integer.parseInt(stock));
 			
 			// Si on a bien un fichier
 			if (nameFile != null && !nameFile.isEmpty()) {
@@ -156,6 +170,10 @@ public class AdminController extends HttpServlet {
 		}
 	}
 
+	/*
+	 * Méthode utilitaire qui a pour but d'écrire le fichier passé en paramètre
+	 * sur le disque, dans le répertoire donné et avec le nom donné.
+	 */
 	private void writeFile(Part part, String nameFile, String path) throws IOException {
         BufferedInputStream input = null;
         BufferedOutputStream output = null;
@@ -180,12 +198,26 @@ public class AdminController extends HttpServlet {
         }		
 	}
 	
+    /*
+     * Méthode utilitaire qui a pour unique but d'analyser l'en-tête
+     * "content-disposition", et de vérifier si le paramètre "filename" y est
+     * présent. Si oui, alors le champ traité est de type File et la méthode
+     * retourne son nom, sinon il s'agit d'un champ de formulaire classique et
+     * la méthode retourne null.
+     */
 	private static String getNameFile(Part part) {
+		// Boucle sur chacun des paramètres de l'en-tête "content-disposition".
         for ( String contentDisposition : part.getHeader( "content-disposition" ).split( ";" ) ) {
+        	// Recherche de l'éventuelle présence du paramètre "filename".
             if ( contentDisposition.trim().startsWith( "filename" ) ) {
+                /*
+                 * Si "filename" est présent, alors renvoi de sa valeur,
+                 * c'est-à-dire du nom de fichier sans guillemets.
+                 */
                 return contentDisposition.substring( contentDisposition.indexOf( '=' ) + 1 ).trim().replace( "\"", "" );
             }
         }
+        // Si rien n'a été trouvé 
 		return null;
 	}
 

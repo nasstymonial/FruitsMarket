@@ -63,6 +63,12 @@
 					</div>
 			    </div>
 			  </div>
+			  <div class="form-row">
+				  <div class="form-group ">
+			 		<label>Stock</label>
+			 		<input type="number" name="stock" step="1" placeholder="Stock" required>
+				  </div>
+			  </div>
 			  <div class="form-group">
 		 		 <label for="fileupload"> Image du produit</label>
 		 		 <input type="file" name="image" required>

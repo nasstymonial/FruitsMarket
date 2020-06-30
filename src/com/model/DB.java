@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import com.beans.Product;
 import com.beans.User;
 
-
+/*
+ * @author Nassim Kissi
+ * Class qui représente la connexion à notre base de données ainsi que ses requêtes 
+ */
 public class DB {
 	
 	private String username = "root";
@@ -23,6 +26,10 @@ public class DB {
 	ArrayList<User> userList = new ArrayList<>();
 	
 	private Connection con;
+	
+	/*
+	 * Méthode permettant de connecter la BDD 
+	 */
 	private void dbConnect() {
 		try {
 			Class.forName(driver);
@@ -38,6 +45,7 @@ public class DB {
 		}
 	}
 	
+	// Méthode permettant de fermer la BDD 
 	private void dbClose() {
 		try {
 			con.close();
@@ -47,6 +55,9 @@ public class DB {
 		
 	}
 
+	/*
+	 * Méthode qui appel une requête SQL afin d'ajouter un utilisateur
+	 */
 	public void addUser(User user) throws SQLException {
 		dbConnect();
 		String sql = "Insert into user(name,email,username,address,password) values(?,?,?,?,?)";
@@ -63,6 +74,10 @@ public class DB {
 		dbClose();
 	}
 
+	/*
+	 * Méthode qui appel une requête SQL afin de selectionner tout les utilisateur
+	 * Va renvoyer true si il existe, false sinon
+	 */
 	public boolean checkUser(String username, String password) throws SQLException {
 		dbConnect();
 		int count = 0;
@@ -85,6 +100,10 @@ public class DB {
 		return true;
 	}
 
+	/*
+	 * Méthode qui appel une requête SQL afin de selectionner tout les produit
+	 * et va stocker chaque produit dans une ArrayList
+	 */
 	public ArrayList<Product> fetch() throws SQLException {
 		dbConnect();
 		String sql = "Select * from product";
@@ -96,12 +115,14 @@ public class DB {
 			String category= rs.getString("category");
 			Double price= rs.getDouble("price");
 			String featured= rs.getString("featured");
+			int stock = rs.getInt("stock");
 			String image= rs.getString("image");
 			
 			Product p = new Product();
 			p.setCategory(category);
 			p.setFeatured(featured);
 			p.setId(id);
+			p.setStock(stock);
 			p.setImage(image);
 			p.setName(name);
 			p.setPrice(price);
@@ -146,7 +167,7 @@ public class DB {
 	
 	public User fetchUser(String id) throws SQLException {
 		dbConnect();
-		String sql = "select * from user where id=?";
+		String sql = "select * from user where email=?";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		pstmt.setString(1, id);
 		ResultSet rst = pstmt.executeQuery();
@@ -161,6 +182,11 @@ public class DB {
 		dbClose();
 		return u;
 	}
+	
+	/*
+	 * Méthode qui appel une requête SQL afin de mettre à jour l'utilisateur selon son ID
+	 * @Todo : Méthode pas encore finalisé 
+	 */
 	public void updateUser(User u) throws SQLException {
 		dbConnect();
 		String sql = "update user set name=?,address=?, email=? where id = ?";
@@ -173,6 +199,10 @@ public class DB {
 		dbClose();
 	}
 
+	/*
+	 * Méthode qui appel une requête SQL afin de supprimé un produit selon son ID
+	 * Cette méthode sera appelé dans l'interface admin 
+	 */
 	public void deleteProduct(String id) throws SQLException {
 		
 		dbConnect();
@@ -184,6 +214,9 @@ public class DB {
 		
 	}
 
+	/*
+	 * Méthode qui appel une requête SQL afin de chercher le produit concernant selon son id
+	 */
 	public Product fetchProduct(String id) throws SQLException {
 		dbConnect();
 		String sql = "select * from product where id=?";
@@ -198,35 +231,44 @@ public class DB {
 			p.setPrice(rst.getDouble("price"));
 			p.setCategory(rst.getString("category"));
 			p.setFeatured(rst.getString("featured"));
+			p.setStock(rst.getInt("stock"));
 			p.setImage(rst.getString("image"));
 		}
 		dbClose();
 		return p;
 	}
 
+	/*
+	 * Méthode qui appel une requête SQL afin de mettre à jour le produit selon son ID
+	 */
 	public void updateProduct(Product p) throws SQLException {
 		dbConnect();
-		String sql = "update product set name=?,price=?,category=?,featured=? where id=?";
+		String sql = "update product set name=?,price=?,category=?,featured=?, stock=? where id=?";
 		PreparedStatement st = con.prepareStatement(sql);
 		st.setString(1, p.getName());
 		st.setDouble(2, p.getPrice());
 		st.setString(3, p.getCategory());
 		st.setString(4, p.getFeatured());
-		st.setInt(5, p.getId());
+		st.setInt(5, p.getStock());
+		st.setInt(6, p.getId());
 		st.executeUpdate();
 		dbClose();
 	}
 
+	/*
+	 * Méthode qui appel une requête SQL afin d'insérer un nouveau produit
+	 */
 	public void addProduct(Product p) throws SQLException {
 		dbConnect();
-		String sql = "Insert into product(name,price,category,featured,image) values(?,?,?,?,?)";
+		String sql = "Insert into product(name,price,category,featured,sotck, image) values(?,?,?,?,?,?)";
 		PreparedStatement st = con.prepareStatement(sql);
 		
 		st.setString(1, p.getName());
 		st.setDouble(2, p.getPrice());
 		st.setString(3, p.getCategory());
 		st.setString(4, p.getFeatured());
-		st.setString(5, p.getImage());
+		st.setInt(5, p.getStock());
+		st.setString(6, p.getImage());
 		
 		
 		st.executeUpdate();

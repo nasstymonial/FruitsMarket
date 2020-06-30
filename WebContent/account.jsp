@@ -86,7 +86,6 @@
 				 	<a href="Controller?page=edit">
 				 		<button type="button" class="btn btn-warning">Modifier le profil</button>
 				 	</a>
-				 	
 				 	<br>
 				 	<h5>Nom et Prénom : </h5>
 				 	<c:out value="${ name }"></c:out>

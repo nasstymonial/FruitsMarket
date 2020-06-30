@@ -2,8 +2,15 @@ package com.beans;
 
 import java.util.ArrayList;
 
+/*
+ * @author Nassim Kissi
+ * Classe représentant notre objet User
+ */
 public class User {
 	
+	/*
+	 * Propriété de notre objet
+	 */
 	private int id;
 	private String name;
 	private String email;
@@ -11,6 +18,9 @@ public class User {
 	private String password;
 	private String address;
 	
+	/*
+	 * Getter et setter 
+	 */
 	public int getId() {
 		return id;
 	}
