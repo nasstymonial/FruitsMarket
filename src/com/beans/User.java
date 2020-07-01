@@ -79,6 +79,13 @@ public class User {
 		return "";
 	}
 	
+	public Object fetchid(ArrayList<User> userList, String username) {
+		for(User u : userList) {
+			if(u.getUsername().equals(username))
+				return u.getId();
+		}
+		return "";
+	}
 	
 	
 }

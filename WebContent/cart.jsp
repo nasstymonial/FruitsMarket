@@ -69,6 +69,7 @@
 	</header>
 	
 	<div class="container">
+	<form method="post" action="Controller">
 	
 	<c:choose> 
 		<c:when test="${x == 1}">
@@ -107,11 +108,20 @@
 			</c:forEach>
 		</c:forEach>
 	
-	<h4 style="margin-top: 40px;margin-bottom: 40px;">Total de la commande: <c:out value="${ total }"></c:out> €</h4>
 	
-	<c:if test="${x > 0}">
-		<a href="Controller?page=success"><input type="submit" value="Procéder au paiement" class="btn btn-success" style="width:100%;padding:8px;font-size:16px;"></a><br>	
-	</c:if>
+		<input type="hidden" name="page" value="form-cart">
+		
+		<input type="hidden" name="id" value="${ id }">
+		<input type="hidden" name="user_client" value="${ name }">
+		
+		 
+		<h4 style="margin-top: 40px;margin-bottom: 40px;">Total de la commande: <c:out value="${ total }"></c:out> €</h4>
+		<input type="hidden" name="total" value="${ total }">
+		
+		<c:if test="${x > 0}">
+			<a href="Controller?page=success"><input type="submit" value="Procéder au paiement" class="btn btn-success" style="width:100%;padding:8px;font-size:16px;"></a><br>	
+		</c:if>
+	</form>
 	<a href="Controller?page=index"><input type="button" value="Continuer à faire des achats" class="btn btn-warning" style="width:100%;padding:8px;font-size:16px;"></a>
 	
 	

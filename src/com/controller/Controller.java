@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
+import com.beans.Order;
 import com.beans.Product;
 import com.beans.User;
 import com.model.DB;
@@ -142,6 +144,7 @@ public class Controller extends HttpServlet {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				session.setAttribute("id", user.fetchid(userList, username));
 				session.setAttribute("address", user.fetchadd(userList,username));
 				session.setAttribute("email", user.fetchemail(userList,username));
 				session.setAttribute("name", user.fetchname(userList,username));
@@ -280,13 +283,30 @@ public class Controller extends HttpServlet {
 				request.getRequestDispatcher("fruits.jsp").forward(request, response);
 		}
 		
+		if(page.equals("form-cart")){
+			String id = request.getParameter("id");
+			String total = request.getParameter("total");
+			String name_user = request.getParameter("user_client"); 
+			
+			Order o = new Order(); 
+			o.setId_user(Integer.parseInt(id));
+			o.setTotal(Double.parseDouble(total));
+			o.setName_user(name_user);
+			
+			DB account = new DB();
+			try {
+				account.addOrder(o);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			request.getRequestDispatcher("success.jsp").forward(request, response);
+		}
 		/*
 		 * Va permettre de renvoyer un message de confirmation à l'utilisateur connecté lors de sa confirmation d'achat 
 		 */
 		if(page.equals("success")) {
-			String id = request.getParameter("id");
-			Product p = new Product();
-			cartlist = p.remove(cartlist,id);
 			request.getRequestDispatcher("success.jsp").forward(request, response);
 			
 		}

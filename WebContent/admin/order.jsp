@@ -38,7 +38,7 @@
 	              <a class="nav-link mr-5" href="admin?page=order">Commandes</a>
 	            </li>
 	          </ul>
-	       	  
+ 	  
 	        </div>
 	      </nav>
 	
@@ -53,7 +53,7 @@
 	 
 	  <sql:query var="result" dataSource="${ds }">
  
-		 select * from product
+		 select * from `order`
 		 
 	   </sql:query>
 	   
@@ -65,35 +65,28 @@
           <font color="#28a745"><c:out value="${msgSuccess }"></c:out></font>
           
           <div class="row">
-              <h1><strong>Liste des produits  </strong><a href="admin?page=addproduct" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-plus"></span> Ajouter</a></h1>
+              <h1><strong>Liste des commandes </strong></h1>
               
               
               <table class="table table-striped table-bordered">
                 <thead>
                   <tr>
                     <th>Id</th>
-                    <th>Image</th>
-                    <th>Nom</th>
-                    <th>Prix</th>
-                    <th>Catégorie</th>
-                    <th>Stock</th>
-                    <th>Actions</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Nom du client</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                 	<c:forEach items="${result.rows }" var="row">
 	                    <tr>
 		                    <td><c:out value="${row.id }"></c:out></td>
-		                    <td><img src="${row.image}" width="30%" ></td>
-		                    <td><c:out value="${row.name }"></c:out></td>
-		                    <td><c:out value="${row.price }"></c:out></td>
-		                    <td><c:out value="${row.category}"></c:out></td>
-		                    <td><c:out value="${row.stock}"></c:out></td>
+		                    <td><c:out value="${row.date_order }"></c:out></td>
+		                    <td><c:out value="${row.total }"></c:out></td>
+		                    <td><c:out value="${row.name_user }"></c:out></td>
 		                    <td width="20%">
-			               
-			                     <a class="btn btn-primary" href="<%= request.getContextPath() %>/admin?page=edit&id=${row.id}"><span class="glyphicon glyphicon-pencil"></span> Modifier</a>
-			                    
-			                     <a class="btn btn-danger" href="<%= request.getContextPath() %>/admin?page=delete&id=${row.id}"><span class="glyphicon glyphicon-remove"></span> Supprimer</a>
+			                     <a class="btn btn-danger" href="<%= request.getContextPath() %>/admin?page=delete_order&id=${row.id}"><span class="glyphicon glyphicon-remove"></span> Supprimer</a>
 		                    </td>
 	                    </tr>
 	                </c:forEach>

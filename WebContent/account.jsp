@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,6 +98,29 @@
 				 	<br>
 				 	<h5>Adresse mail: </h5>
 				 	<c:out value="${ email }"></c:out>
+				 	
+				 	<h2>Mes dernières commandes</h2>
+				 	
+				  <sql:setDataSource user="root" password="" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3308/fruitsmarket?useSSL=false&serverTimezone=UTC" var="ds"/>
+	 
+				  <sql:query var="result" dataSource="${ds }">
+			 
+					 select * from `order` where id_user = ${ id }
+					 
+				   </sql:query>
+				   
+				   <table class="table table-striped table-bordered">
+                
+	                <tbody>
+	                	<c:forEach items="${result.rows }" var="row">
+		                    <tr>
+			                    <td><c:out value="${row.date_order }"></c:out></td>
+			                    <td><c:out value="${row.total }"></c:out> €</td>
+			                    <td><c:out value="${row.name_user }"></c:out></td>
+		                    </tr>
+		                </c:forEach>
+	                </tbody>
+	              </table>
 			 	</div>
 			</c:when>	          
   		</c:choose>

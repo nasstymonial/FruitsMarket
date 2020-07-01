@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.beans.Order;
 import com.beans.Product;
 import com.beans.User;
 
@@ -106,7 +107,7 @@ public class DB {
 	 */
 	public ArrayList<Product> fetch() throws SQLException {
 		dbConnect();
-		String sql = "Select * from product";
+		String sql = "Select * from product order by name";
 		PreparedStatement st = con.prepareStatement(sql);
 		ResultSet rs = st.executeQuery();
 		while(rs.next()) {
@@ -260,7 +261,7 @@ public class DB {
 	 */
 	public void addProduct(Product p) throws SQLException {
 		dbConnect();
-		String sql = "Insert into product(name,price,category,featured,sotck, image) values(?,?,?,?,?,?)";
+		String sql = "Insert into product(name,price,category,featured,stock, image) values(?,?,?,?,?,?)";
 		PreparedStatement st = con.prepareStatement(sql);
 		
 		st.setString(1, p.getName());
@@ -273,6 +274,32 @@ public class DB {
 		
 		st.executeUpdate();
 		dbClose();
+	}
+	
+	public void addOrder(Order o) throws SQLException {
+		dbConnect();
+		String sql = "INSERT INTO `order`(`date_order`, `total`, `id_user`, `name_user`) VALUES (?, ?, ?, ?);";
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		st.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));
+		st.setDouble(2, o.getTotal());
+		st.setInt(3, o.getId_user());
+		st.setString(4, o.getName_user());
+		
+		
+		st.executeUpdate();
+		dbClose();
+	}
+	
+	public void deleteOrder(String id) throws SQLException {
+		
+		dbConnect();
+		String sql = "Delete from `order` where id=?";
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setString(1, id);
+		st.executeUpdate();
+		dbClose();
+		
 	}
 
 	

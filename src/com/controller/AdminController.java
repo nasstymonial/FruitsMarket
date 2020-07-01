@@ -73,9 +73,25 @@ public class AdminController extends HttpServlet {
 			
 			request.setAttribute("msgSuccess", "Produits supprimé avec succés");
 			request.getRequestDispatcher("admin/index.jsp").forward(request, response);
-
 		}
 		
+		if(page.equals("order")) {
+			request.getRequestDispatcher("admin/order.jsp").forward(request, response);
+		}
+		
+		if(page.equals("delete_order")) {
+			String id = request.getParameter("id");
+			DB db = new DB();
+			try {
+				db.deleteOrder(id);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			request.setAttribute("msgSuccess", "Commande annulé avec succés");
+			request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+		}
 		if(page.equals("index")) {
 			request.getRequestDispatcher("admin/index.jsp").forward(request, response);
 		}
